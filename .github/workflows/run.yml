@@ -1,8 +1,8 @@
-name: 刷步数
+﻿name: 鍒锋鏁?
 
 on:
   schedule:
-    - cron: '25 1,4,10,12,14,23 * * *'
+    - cron: '1 2,14 * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,18 +13,18 @@ jobs:
       - name: Checkout codes
         uses: actions/checkout@v5
         with:
-          token: ${{ secrets.PAT }} #此处PAT需要申请，教程详见：README
+          token: ${{ secrets.PAT }} #姝ゅPAT闇€瑕佺敵璇凤紝鏁欑▼璇﹁锛歊EADME
       - name: Update system and install zsh
         run: |
           sudo -E apt-get -qq update
           sudo -E apt-get install zsh -y
           
-      - name: 初始化Python
+      - name: 鍒濆鍖朠ython
         uses: actions/setup-python@v6
         with:
           python-version: "3.10"
           
-      - name: 开始
+      - name: 寮€濮?
         env:
             CONFIG: ${{ secrets.CONFIG }}
             AES_KEY: ${{ secrets.AES_KEY }}
