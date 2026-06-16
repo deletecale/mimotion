@@ -21,16 +21,8 @@ jobs:
           sudo -E apt-get install zsh -y
 
       - name: 初始化Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.10"
-
-      - name: 开始
-        env:
-            CONFIG: ${{ secrets.CONFIG }}
-            AES_KEY: ${{ secrets.AES_KEY }}
-        run: |
-          pip3 install requests pytz pycryptodome
+def get_min_max_by_time(hour=None, minute=None):
+    return 19300, 20003
           python3 main.py
 
       - name: persist tokens
