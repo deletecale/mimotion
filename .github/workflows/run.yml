@@ -1,4 +1,4 @@
-name: 刷步数
+﻿name: 刷步数
 
 on:
   schedule:
@@ -19,18 +19,18 @@ jobs:
         run: |
           sudo -E apt-get -qq update
           sudo -E apt-get install zsh -y
-
+          
       - name: 初始化Python
- # 获取当前时间对应的最大和最小步数
- def get_min_max_by_time(hour=None, minute=None):
-    if hour is None:
-         hour = time_bj.hour
-     if minute is None:
-        minute = time_bj.minute
-     time_rate = min((hour * 60 + minute) / (22 * 60), 1)
-    min_step = get_int_value_default(config, 'MIN_STEP', 18000)
-    max_step = get_int_value_default(config, 'MAX_STEP', 25000)
-    return int(time_rate * min_step), int(time_rate * max_step)
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+          
+      - name: 开始
+        env:
+            CONFIG: ${{ secrets.CONFIG }}
+            AES_KEY: ${{ secrets.AES_KEY }}
+        run: |
+          pip3 install requests pytz pycryptodome
           python3 main.py
 
       - name: persist tokens
@@ -38,5 +38,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@users.noreply.github.com
           git add .
-          git commit -m "persist tokens trigger by ${{ github.event_name }}" || true
-          git push origin master || true
+          git commit -m "persist tokens trigger by ${{ github.event_name }}"
+          git push origin master
