@@ -1,16 +1,14 @@
 name: Persist Tokens
 on:
-  workflow_run:
-    workflows: ["刷步数"]
-    types:
-      - completed
+  schedule:
+    - cron: '30 6 * * *'
+    - cron: '22 14 * * *'
   workflow_dispatch:
 
 jobs:
   persist:
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -19,7 +17,8 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@users.noreply.github.com
+          git pull origin master --rebase || true
           git add .
           current=`TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S'
-          git commit -m "[${current}] persist tokens"
-          git push origin master
+          git commit -m "[${current}] persist tokens" || true
+          git push origin master || true
