@@ -4,16 +4,13 @@ on:
     workflows: ["刷步数"]
     types:
       - completed
-  schedule:
-    - cron: '00 6 * * *'
-    - cron: '22 14 * * *'
   workflow_dispatch:
 
 jobs:
   persist:
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v3
         with:
