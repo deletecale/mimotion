@@ -1,4 +1,4 @@
-﻿# -*- coding: utf8 -*-
+# -*- coding: utf8 -*-
 import math
 import traceback
 from datetime import datetime
@@ -26,6 +26,7 @@ def get_min_max_by_time(hour=None, minute=None):
     min_step = get_int_value_default(config, 'MIN_STEP', 19300)
     max_step = get_int_value_default(config, 'MAX_STEP', 20003)
     return min_step, max_step
+
 
 # 虚拟ip地址
 def fake_ip():
