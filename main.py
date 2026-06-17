@@ -23,9 +23,7 @@ def get_int_value_default(_config: dict, _key, default):
 
 # 获取当前时间对应的最大和最小步数
 def get_min_max_by_time(hour=None, minute=None):
-    min_step = get_int_value_default(config, 'MIN_STEP', 19300)
-    max_step = get_int_value_default(config, 'MAX_STEP', 20003)
-    return min_step, max_step
+    return 19300, 20003
 
 
 # 虚拟ip地址
