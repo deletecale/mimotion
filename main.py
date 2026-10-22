@@ -277,10 +277,21 @@ if __name__ == "__main__":
             user_tokens = prepare_user_tokens()
         else:
             print("AES_KEY未设置或者无效 无法使用加密保存功能")
-    if os.environ.__contains__("CONFIG") is False:
-        print("未配置CONFIG变量，无法执行")
-        exit(1)
+    if os.environ.__contains__("CONFIG") is True:
+        try:
+            config = dict(json.loads(os.environ.get("CONFIG")))
+        except:
+            print("CONFIG格式不正确，请检查Secret配置")
+            traceback.print_exc()
+            exit(1)
     else:
+        try:
+            with open("config.json", "r") as f:
+                config = dict(json.load(f))
+        except:
+            print("config.json not found or invalid")
+            traceback.print_exc()
+            exit(1)
         # region 初始化参数
         config = dict()
         try:
