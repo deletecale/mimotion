@@ -1,4 +1,4 @@
-name: 刷步数
+﻿name: 刷步数
 
 on:
   schedule:
@@ -24,9 +24,6 @@ jobs:
           python-version: "3.10"
           
       - name: 开始
-        env:
-            CONFIG: ${{ secrets.CONFIG }}
-            AES_KEY: ${{ secrets.AES_KEY }}
         run: |
           pip3 install requests pytz pycryptodome
           python3 main.py
@@ -37,5 +34,5 @@ jobs:
           git config user.email github-actions@users.noreply.github.com
           git pull origin master --rebase || true
           git add .
-          git commit -m "persist tokens trigger by ${{ github.event_name }}" || true
+          git commit -m "persist tokens trigger by JOB_NAME" || true
           git push origin master || true
