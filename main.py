@@ -284,9 +284,10 @@ if __name__ == "__main__":
         # region 初始化参数
         config = dict()
         try:
-            config = dict(json.loads(os.environ.get("CONFIG")))
+            with open("config.json", "r") as f:
+                config = dict(json.load(f))
         except:
-            print("CONFIG格式不正确，请检查Secret配置，请严格按照JSON格式：使用双引号包裹字段和值，逗号不能多也不能少")
+            print("config.json not found or invalid")
             traceback.print_exc()
             exit(1)
         # 创建推送配置对象
